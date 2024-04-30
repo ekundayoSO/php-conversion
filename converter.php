@@ -9,15 +9,7 @@ class Converter
     public $kilogramToGrams;
     public $gramsToKilograms;
 
-    function __construct()
-    {
-        $this->celsiusToFahrenheit;
-        $this->celsiusToKelvin;
-        $this->kilometersToMeters;
-        $this->kilometersToKnots;
-        $this->kilogramToGrams;
-        $this->gramsToKilograms;
-    }
+    function __construct(){}
     function convertCelToFah($degreeInCel)
     {
         $this->celsiusToFahrenheit = number_format(($degreeInCel * 9 / 5) + 32, 2);
@@ -40,12 +32,12 @@ class Converter
     }
     function convertKgToGrams($kilograms)
     {
-        $this->kilogramToGrams = number_format($kilograms / 1000, 2);
+        $this->kilogramToGrams = number_format($kilograms * 1000, 2);
         return $this->kilogramToGrams;
     }
-    function convertGramsToKg($grams)
+    function convertGramsToKg($kilograms)
     {
-        $this->gramsToKilograms = number_format($grams * 1000, 2);
+        $this->gramsToKilograms = number_format($kilograms / 1000, 2);
         return $this->gramsToKilograms;
     }
 }
@@ -78,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     echo "<h2>Mass Conversions</h2>";
     echo "Kilograms to Grams: $mass kg = $massGrams g<br>";
-    echo "Grams to Kilograms: $massGrams g = $massKg kg<br>";
+    echo "Grams to Kilograms: $mass g = $massKg kg<br>";
 
     # Empty input fields after each post.
     if (!empty($_POST['temperature']) && !empty($_POST['speed']) && !empty($_POST['mass'])) {
@@ -92,41 +84,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html>
-<style>
-    form {
-        max-width: 800px;
-    }
-
-    div {
-        border: 2px solid orange;
-        border-radius: 5px;
-        margin: 20px;
-        padding-left: 10px;
-    }
-
-    div:hover {
-        border: 2px solid red;
-        transition: 1s ease-out;
-    }
-
-    input[type='submit'] {
-        background-color: orange;
-        color: white;
-        font-weight: bold;
-        border: none;
-        border-radius: 4px;
-        padding: 10px;
-        margin-left: 20px;
-
-    }
-
-    input[type='submit']:hover {
-        background-color: green;
-        transition: 0.5s ease-out;
-    }
-</style>
-
 <head>
+    <link rel="stylesheet" href="style.css">
     <title>Measurement Converter</title>
 </head>
 
@@ -143,7 +102,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
         <div>
             <h2>Mass</h2>
-            Kilograms: <input type="text" name="mass" value="<?= $mass ?>"><br><br>
+            Kilograms/Grams: <input type="text" name="mass" value="<?= $mass ?>"><br><br>
         </div>
         <input type="submit" value="Convert">
     </form>
